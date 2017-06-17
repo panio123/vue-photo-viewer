@@ -2,9 +2,9 @@
 
 >一个vuejs的手机图片查看器
 
-![image](https://git.oschina.net/liupan520/vue-photo-viewer/blob/master/photo-viewer.jpg)
+![image](https://git.oschina.net/liupan520/vue-photo-viewer/raw/master/photo-viewer.jpg)
 
-![image](https://git.oschina.net/liupan520/vue-photo-viewer/blob/master/photo-viewer-2.jpg)
+![image](https://git.oschina.net/liupan520/vue-photo-viewer/raw/master/photo-viewer-2.jpg)
 
 ## 演示地址 [DOME](http://liu-pan.cc/production)
 
