@@ -10,10 +10,17 @@
 
 ## 使用
 
+``` html
+
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=0">
+
+```
+
 #### 安装
 
 ``` bash
 
+//需要vue.js 2.1.5 以上版本
 npm install vue-photo-viewer
 
 ```

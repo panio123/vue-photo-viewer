@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("pviewer", [], factory);
+		define("VPviewer", [], factory);
 	else if(typeof exports === 'object')
-		exports["pviewer"] = factory();
+		exports["VPviewer"] = factory();
 	else
-		root["pviewer"] = factory();
+		root["VPviewer"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -393,9 +393,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getListFromImg: function getListFromImg(callback) {
             var _this3 = this;
 
-            var container = this.$slots.default;
+            var container = this.$slots.default[0];
             if (!container) return;
-            var imgs = container[0].elm.getElementsByTagName('img');
+            var imgs = container.elm.getElementsByTagName('img');
             var imgArr = [];
             if (!imgs.length) return;
             this.count += imgs.length;
@@ -491,10 +491,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_VPviewer_vue__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_VPviewer_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_VPviewer_vue__);
 
-__WEBPACK_IMPORTED_MODULE_0__components_VPviewer_vue___default.a.install = function (Vue) {
-  Vue.component(pviewer.name, pviewer);
-};
-
+if (typeof window !== 'undefined' && window.Vue) {
+  window.Vue.component(__WEBPACK_IMPORTED_MODULE_0__components_VPviewer_vue___default.a.name, __WEBPACK_IMPORTED_MODULE_0__components_VPviewer_vue___default.a);
+}
 /* harmony default export */ __webpack_exports__["default"] = (__WEBPACK_IMPORTED_MODULE_0__components_VPviewer_vue___default.a);
 
 /***/ }),

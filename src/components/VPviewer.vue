@@ -278,9 +278,9 @@ export default {
             }
         },
         getListFromImg(callback) {
-            let container = this.$slots.default;
+            let container = this.$slots.default[0];
             if (!container) return;
-            let imgs = container[0].elm.getElementsByTagName('img');
+            let imgs = container.elm.getElementsByTagName('img');
             let imgArr = [];
             if (!imgs.length) return;
             this.count += imgs.length;
@@ -402,6 +402,10 @@ export default {
         overflow: hidden;
         background: #353535;
         z-index: 1000;
+        width: 100%;
+        height: 100%;
+        width: 100vw;
+        height: 100vh;
     }
     .v-pviewer-list {
         position: relative;
@@ -444,8 +448,10 @@ export default {
         top: 0;
         left: 0;
         right: 0;
+        text-align: center;
         .v-pviewer-index {
             line-height: 2;
+            font-size: 12px;
         }
     }
     .v-pviewer-footer {

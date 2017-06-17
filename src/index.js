@@ -1,6 +1,5 @@
 import VPviewer from './components/VPviewer.vue';
-VPviewer.install = function (Vue) {
-  Vue.component(pviewer.name, pviewer);
-};
-
+if (typeof window !== 'undefined' && window.Vue) {
+  window.Vue.component(VPviewer.name, VPviewer);
+}
 export default VPviewer;
