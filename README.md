@@ -97,16 +97,16 @@ export default {
       }
   },
   methods:{
-      pushImg:function(){
+      pushImg(){
           this.list.push({img:'src.jpg'});
-      },
-        zoom: function (val) {
-                console.log(val);
-    },
-        slide: function (val) {
-                console.log(val);
+        },
+        zoom(val) {
+            console.log(val);
+        },
+        slide(val) {
+            console.log(val);
+        }
     }
-  }
 }
 </script>
 
