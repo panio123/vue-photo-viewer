@@ -1,9 +1,15 @@
 {
   "name": "vue-photo-viewer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A vue photo viewer",
   "author": "liupan <panio123@qq.com>",
-  "private": true,
+  "license": "ISC",
+  "main": "./dist/pviewer.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/panio123/vue-photo-viewer.git"
+  },
+  "private": false,
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",

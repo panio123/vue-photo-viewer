@@ -161,9 +161,7 @@ export default {
             } else {
                 this.moving = true;
                 this._tranform(this.$refs.list, { x: this.position.x, y: 0 });
-                // this.$refs.list.style.transform = 'translate3d(' + this.position.x + 'px,0,0)';
                 if (isTmove) return;
-                this._emit('slideEnd', this.activeIndex);
                 this.moving = false;
             }
         },
@@ -172,9 +170,11 @@ export default {
                 this.activeIndex++;
                 this.position.x = this.boxWidth * this.activeIndex * -1;
             }
-            this._emit('slideNext', )
+            let activeImgData = this.imgList[this.activeIndex];
+            this._emit('slide-next', activeImgData);
             this.moveWrap();
             this.reSetZoom();
+            this._emit('slide-end', activeImgData);
         },
         goPre() {
             if (this.activeIndex === 0) {
@@ -183,8 +183,11 @@ export default {
                 this.activeIndex--;
                 this.position.x = this.boxWidth * this.activeIndex * -1;
             }
+            let activeImgData = this.imgList[this.activeIndex];
+            this._emit('slide-next', activeImgData);
             this.moveWrap();
             this.reSetZoom();
+            this._emit('slide-end', activeImgData);
         },
         reSetPosition(jump) {
             this.reSetOverflow();
@@ -194,7 +197,9 @@ export default {
                 this.moving = true;
                 this.position.x = this.startPosition.x;
             }
+            let activeImgData = this.imgList[this.activeIndex];
             this.moveWrap();
+            this._emit('slide-end', activeImgData);
         },
         reSetOverflow() {
             this.overflow = false;
@@ -236,7 +241,6 @@ export default {
                 // console.log(this.zoomMaxWidth);
                 img.style.transformOrigin = _cx + '%' + cy + '% 0';
                 this._tranform(img, false, { x: _rate, y: _rate });
-                // img.style.transform = 'scale(' + (rate + 1) + ')';
                 this.zoom = true;
             } else {
                 img.style.transform = '';
@@ -323,7 +327,7 @@ export default {
     },
     computed: {
         desc: function () {
-            let item = this.list[this.activeIndex];
+            let item = this.imgList[this.activeIndex];
             return item ? item.desc : '';
         }
     },
@@ -351,9 +355,9 @@ export default {
     },
     mounted() {
         this.getListFromImg(() => {
-            // console.log(this.imgList, this.list);
             this.show = this.value;
             this.imgList = this.imgList.concat(this.list);
+            console.log(this.imgList, this.list);
             this.updateList()
         });
     }

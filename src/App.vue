@@ -2,7 +2,7 @@
   <div id="app">
     <button @click="showViewer = true">显示图片查看器</button>
     <button @click="pushImg">动态增加图片</button>
-    <v-pviewer :list="list" v-model="showViewer">
+    <v-pviewer :list="list" v-model="showViewer" @zoom="zoom" @slide-end="slide" @slide-next="slide" @slide-pre="slide">
       <ul class="gallery">
         <li>
           <img desc="可以让一部分浏览器的窗体不能滚动，但不包括Safari等浏览器，怎么办呢？" class="pic" src="https://p.qpic.cn/qqconadmin/0/e4a67754b2d1485aa186a4d38dbf07e1/0">
@@ -66,6 +66,12 @@ export default {
       this.list.push({
         img: 'https://gpic.qpic.cn/gbar_pic/hVlQlSGMCtYlKrqpM5xwdmJrbh4iaawOgY6lFT1eNWTib7qv2Z2QuJWXmchPUqBriay/1000'
       })
+    },
+    zoom(val) {
+      console.log(val);
+    },
+    slide(val) {
+      console.log(val);
     }
   }
 }
