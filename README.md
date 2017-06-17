@@ -2,7 +2,9 @@
 
 >一个vuejs的手机图片查看器
 
-![image](http://git.oschina.net/liupan520/vue-phone-model/raw/master/p.jpg)
+![image](https://git.oschina.net/liupan520/vue-photo-viewer/blob/master/photo-viewer.jpg)
+
+![image](https://git.oschina.net/liupan520/vue-photo-viewer/blob/master/photo-viewer-2.jpg)
 
 ## 演示地址 [DOME](http://liu-pan.cc/production)
 
@@ -101,8 +103,8 @@ export default {
 #### 方式三
 
 前面两种方法混合使用，但需要注意的几点：
-1、方式一的查找机制会在自定义imglist之前运行。这意为着dom内的图片排序会在imglist之前；
-2、混合使用时，动态更改
+1、方式一的查找机制会在自定义imglist之前运行。这意为着dom内的图片排序会在`imglist`之前；
+2、混合使用时，暂不支持动态添加图片或对`imglist`进行任何修改。
 
 
 ### script 引入 
@@ -110,7 +112,7 @@ export default {
 ``` html
 
 <script src="vue/dist/vue.js"></script>
-<script src="vue-phone-model/dist/phone.js"></script>
+<script src="vue-phone-model/dist/pviewer.js"></script>
 
 ```
 
