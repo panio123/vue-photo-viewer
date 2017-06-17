@@ -74,7 +74,7 @@ export default {
   <div id="app">
     <button @click="showViewer = true">显示图片查看器</button>
     <button @click="pushImg">动态增加图片</button>
-    <v-pviewer :lis="imglist" v-model="show"></v-pviewer>
+    <v-pviewer :lis="imglist" v-model="show" @zoom="zoom" @slide-end="slide" @slide-next="slide" @slide-pre="slide"></v-pviewer>
   </div>
 </template>
 <script>
@@ -97,10 +97,15 @@ export default {
       }
   },
   methods:{
-      pushImg(){
-          this.list.push({{
-              img:'https://p.qpic.cn/qqconadmin/0/e4a67754b2d1485aa186a4d38dbf07e1/0'
-          }});
+      pushImg:function(){
+          this.list.push({img:'src.jpg'});
+      },
+        zoom: function (val) {
+                console.log(val);
+    },
+        slide: function (val) {
+                console.log(val);
+    }
   }
 }
 </script>
