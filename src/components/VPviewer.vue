@@ -9,6 +9,10 @@ export default {
         value: {
             type: Boolean,
             default: false
+        },
+        complete: {
+            type: Boolean,
+            default: true
         }
     },
     data() {
@@ -277,8 +281,20 @@ export default {
                 this.position.y = this.startPosition.y = 0;
             }
         },
+        startCollectImg() {
+            if (this.complete !== true) {
+                return;
+            }
+            this.getListFromImg(() => {
+                this.show = this.value;
+                this.imgList = this.imgList.concat(this.list);
+                console.log(this.imgList, this.list);
+                this.updateList()
+            });
+        },
         getListFromImg(callback) {
             let container = this.$slots.default[0];
+            // console.log('container', this.$slots.default[0]);
             if (!container) return;
             let imgs = container.elm.getElementsByTagName('img');
             let imgArr = [];
@@ -318,7 +334,7 @@ export default {
             this.count = this.imgList.length;
             this.maxPosition = (this.boxWidth) * (this.count - 1);
         },
-        _swipeDirection: function (x1, x2, y1, y2) {
+        _swipeDirection: function(x1, x2, y1, y2) {
             return Math.abs(x1 - x2) >= Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
         },
         _emit(eventName, data) {
@@ -326,26 +342,33 @@ export default {
         }
     },
     computed: {
-        desc: function () {
+        desc: function() {
             let item = this.imgList[this.activeIndex];
             return item ? item.desc : '';
         }
     },
     watch: {
-        zoom: function (val) {
+        zoom: function(val) {
             this._emit('zoom', val);
         },
-        list: function (val) {
+        list: function(val) {
             // console.log(val);
             this.imgList.push(val[val.length - 1]);
             this.updateList()
         },
-        value: function (val) {
+        value: function(val) {
             this.show = val;
         },
-        show: function (val) {
+        show: function(val) {
             this.show = val;
             this.$emit('input', val);
+        },
+        complete: function(val) {
+            if (val === true) {
+                this.$nextTick(() => {
+                    this.startCollectImg();
+                });
+            }
         }
     },
     created() {
@@ -354,12 +377,7 @@ export default {
         this.boxHeight = window.innerHeight;
     },
     mounted() {
-        this.getListFromImg(() => {
-            this.show = this.value;
-            this.imgList = this.imgList.concat(this.list);
-            console.log(this.imgList, this.list);
-            this.updateList()
-        });
+        this.startCollectImg();
     }
 }
 
@@ -376,7 +394,7 @@ export default {
                     </div>
                 </slot>
                 <ul class="v-pviewer-list" ref="list">
-                    <li class="v-pviewer-slider" v-for="(item,$index) in imgList" :style="{'transform':'translate3d(' + (boxWidth)*$index + 'px,0,0)'}">
+                    <li class="v-pviewer-slider" v-for="(item,$index) in imgList" :style="{'transform':'translate3d(' + (boxWidth)*$index + 'px,0,0)'}" :key="$index">
                         <div class="v-pviewer-zoom">
                             <img class="v-pviewer-img" :src="item.img" :alt="item.title">
                         </div>

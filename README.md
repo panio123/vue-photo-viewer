@@ -6,7 +6,11 @@
 
 ![image](https://git.oschina.net/liupan520/vue-photo-viewer/raw/master/photo-viewer-2.jpg)
 
-## 演示地址 [DOME](http://liu-pan.cc/production)
+## 演示地址 [DOME](http://liu-pan.cc/production)，目前只支持touch事件，所以pc上无法使用。
+
+## 更新
+
+### 新增一个[complete]参数，用法详见【方式一】
 
 ## 使用
 
@@ -35,7 +39,7 @@ npm install vue-photo-viewer
 
 <template>
   <div id="app">
-    <v-pviewer>
+    <v-pviewer :complete="complete">
       <ul class="gallery">
         <li>
           <img desc="可以让一部分浏览器的窗体不能滚动，但不包括Safari等浏览器，怎么办呢？" src="https://p.qpic.cn/qqconadmin/0/e4a67754b2d1485aa186a4d38dbf07e1/0">
@@ -56,8 +60,19 @@ import VPviewer from 'vue-photo-viewer';
 import 'vue-photo-viewer/dist/pviewer.css';
 
 export default {
+  data(){
+    return {
+      complete:false
+    }
+  },
   components: {
     VPviewer
+  },
+  updated(){
+    //当v-pviewer挂载后，它会立即执行一次抓取图片，但你的图片这时如果还没出来就会抓取不到
+    //所以当图片是动态渲染出来的时候,或者是有类似延迟显示的效果，通过将complete设为true来通知v-pviewer重新抓取图片
+    //你甚至可以通过切换complete的值让v-pviewer多次抓取图片，v-pviewer只会在complete的值变为true时抓取图片
+    this.complete = true;
   }
 }
 </script>

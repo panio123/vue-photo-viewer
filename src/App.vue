@@ -2,8 +2,8 @@
   <div id="app">
     <button @click="showViewer = true">显示图片查看器</button>
     <button @click="pushImg">动态增加图片</button>
-    <v-pviewer :list="list" v-model="showViewer" @zoom="zoom" @slide-end="slide" @slide-next="slide" @slide-pre="slide">
-      <ul class="gallery">
+    <v-pviewer :list="list" v-model="showViewer" :complete="complete" @zoom="zoom" @slide-end="slide" @slide-next="slide" @slide-pre="slide">
+      <ul v-if="showContent" class="gallery">
         <li>
           <img desc="可以让一部分浏览器的窗体不能滚动，但不包括Safari等浏览器，怎么办呢？" class="pic" src="https://p.qpic.cn/qqconadmin/0/e4a67754b2d1485aa186a4d38dbf07e1/0">
         </li>
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-// import VPviewer from './components/VPviewer'
+// import VPviewer from './components/VPviewer';
 import VPviewer from '../dist/pviewer.js';
 import '../dist/pviewer.css';
 
@@ -52,6 +52,8 @@ export default {
   data() {
     return {
       showViewer: false,
+      showContent: false,
+      complete: false,
       list: [{
         img: 'https://gpic.qpic.cn/gbar_pic/PR0vBBjLNC7PpwKQ5YmKjo9ricr8EqAZFQVzXJG96SKCr4hVoWiaT4OQ/0',
         title: '随便什么标题都可能，非必须',
@@ -73,6 +75,14 @@ export default {
     slide(val) {
       console.log(val);
     }
+  },
+  updated() {
+    this.complete = true;
+  },
+  mounted() {
+    setTimeout(() => {
+      this.showContent = true;
+    }, 2000);
   }
 }
 

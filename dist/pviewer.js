@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("VPviewer", [], factory);
+		define("pviewer", [], factory);
 	else if(typeof exports === 'object')
-		exports["VPviewer"] = factory();
+		exports["pviewer"] = factory();
 	else
-		root["VPviewer"] = factory();
+		root["pviewer"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -118,6 +118,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         value: {
             type: Boolean,
             default: false
+        },
+        complete: {
+            type: Boolean,
+            default: true
         }
     },
     data: function data() {
@@ -390,10 +394,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.position.y = this.startPosition.y = 0;
             }
         },
-        getListFromImg: function getListFromImg(callback) {
+        startCollectImg: function startCollectImg() {
             var _this3 = this;
 
+            if (this.complete !== true) {
+                return;
+            }
+            this.getListFromImg(function () {
+                _this3.show = _this3.value;
+                _this3.imgList = _this3.imgList.concat(_this3.list);
+                console.log(_this3.imgList, _this3.list);
+                _this3.updateList();
+            });
+        },
+        getListFromImg: function getListFromImg(callback) {
+            var _this4 = this;
+
             var container = this.$slots.default[0];
+
             if (!container) return;
             var imgs = container.elm.getElementsByTagName('img');
             var imgArr = [];
@@ -408,7 +426,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 };
                 img.setAttribute('v-index', index);
                 imgArr.push(item);
-                _this3.bindClick(img);
+                _this4.bindClick(img);
             });
             this.imgList = imgArr;
             if (callback && callback instanceof Function) {
@@ -416,12 +434,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         bindClick: function bindClick(img) {
-            var _this4 = this;
+            var _this5 = this;
 
             img.addEventListener('click', function (e) {
-                _this4.activeIndex = e.target.getAttribute('v-index') * 1;
-                _this4.reSetPosition(true);
-                _this4.show = true;
+                _this5.activeIndex = e.target.getAttribute('v-index') * 1;
+                _this5.reSetPosition(true);
+                _this5.show = true;
             });
         },
         _tranform: function _tranform(node, t, s) {
@@ -463,6 +481,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         show: function show(val) {
             this.show = val;
             this.$emit('input', val);
+        },
+        complete: function complete(val) {
+            var _this6 = this;
+
+            if (val === true) {
+                this.$nextTick(function () {
+                    _this6.startCollectImg();
+                });
+            }
         }
     },
     created: function created() {
@@ -471,14 +498,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.boxHeight = window.innerHeight;
     },
     mounted: function mounted() {
-        var _this5 = this;
-
-        this.getListFromImg(function () {
-            _this5.show = _this5.value;
-            _this5.imgList = _this5.imgList.concat(_this5.list);
-            console.log(_this5.imgList, _this5.list);
-            _this5.updateList();
-        });
+        this.startCollectImg();
     }
 });
 
@@ -649,6 +669,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "v-pviewer-list"
   }, _vm._l((_vm.imgList), function(item, $index) {
     return _c('li', {
+      key: $index,
       staticClass: "v-pviewer-slider",
       style: ({
         'transform': 'translate3d(' + (_vm.boxWidth) * $index + 'px,0,0)'
