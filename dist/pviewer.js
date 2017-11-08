@@ -122,6 +122,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         complete: {
             type: Boolean,
             default: true
+        },
+        selector: {
+            type: String,
+            default: 'img'
         }
     },
     data: function data() {
@@ -413,7 +417,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var container = this.$slots.default[0];
 
             if (!container) return;
-            var imgs = container.elm.getElementsByTagName('img');
+            var selector = this.selector;
+            var imgs = container.elm.querySelectorAll(selector);
             var imgArr = [];
             if (!imgs.length) return;
             this.count += imgs.length;
