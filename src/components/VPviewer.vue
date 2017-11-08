@@ -13,6 +13,10 @@ export default {
         complete: {
             type: Boolean,
             default: true
+        },
+        selector: {
+            type: String,
+            default: 'img'
         }
     },
     data() {
@@ -296,7 +300,8 @@ export default {
             let container = this.$slots.default[0];
             // console.log('container', this.$slots.default[0]);
             if (!container) return;
-            let imgs = container.elm.getElementsByTagName('img');
+            let selector = this.selector;
+            let imgs = container.elm.querySelectorAll(selector);
             let imgArr = [];
             if (!imgs.length) return;
             this.count += imgs.length;

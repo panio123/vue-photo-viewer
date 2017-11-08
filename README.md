@@ -11,6 +11,7 @@
 ## 更新
 
 ### 新增一个[complete]参数，用法详见【方式一】
+### 新增一个[selector]参数，默认为img 用法详见【方式一】
 
 ## 使用
 
@@ -39,7 +40,7 @@ npm install vue-photo-viewer
 
 <template>
   <div id="app">
-    <v-pviewer :complete="complete">
+    <v-pviewer :complete="complete" selector=".box img'">
       <ul class="gallery">
         <li>
           <img desc="可以让一部分浏览器的窗体不能滚动，但不包括Safari等浏览器，怎么办呢？" src="https://p.qpic.cn/qqconadmin/0/e4a67754b2d1485aa186a4d38dbf07e1/0">
